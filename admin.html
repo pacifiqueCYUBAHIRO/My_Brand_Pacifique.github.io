@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles2.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<title>Admin Dashbord panel</title> 
+<style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+    
+
+
+.popup{
+  display: none;
+  position: fixed;
+  top: 40px;
+  margin-left: 250px;
+  border: 3px solid black;
+ 
+}
+
+    table{
+                width: auto;
+                margin: 40px auto;
+                background: white;
+              
+
+            }
+            table.list{ 
+                text-align: center;
+                width: 100%;
+            }
+            td{
+                text-align: left;
+                padding: 8px 15px;
+
+            }
+            tr:nth-child(even), table.list thread> tr{
+                background-color: rgb(284, 200, 200);
+
+            }
+            input[type="text"], input[type="number"]{
+                width: 91%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid rgb(165, 161, 161);
+                border-radius: 4px;
+            }
+
+            
+            input[type="submit"],input[type="reset"]{
+                background: #ccc;
+                padding: 6px 12px;
+                margin: 15px 0 10px;
+                display: inline-block;
+                border: none;
+                border-radius: 30px;
+                font-size: 1em;
+                cursor: pointer;
+                outline: none;
+            } 
+            input[type="submit"]:hover{
+                background: #4b99d8;
+
+            }
+            input[type="reset"]:hover{
+                background: #4b99d8;
+
+            }
+            button{
+                background: #ccc;
+                padding: 6px 12px;
+                margin: 15px 0 10px;
+                display: inline-block;
+                border: none;
+                border-radius: 30px;
+                font-size: 1em;
+                cursor: pointer;
+                outline: none;  
+            }
+            button:hover{
+                background: #4b99d8;
+            }
+            .list{
+              background-color: wheat;
+            }
+
+    </style>   
+</head>  
+<body>
+        <nav>
+<div class="logo-name">
+    <div class="logo-image">
+    <img src="images/fd.jpeg" alt="">
+
+</div>
+<span class="logo-name">Admin</span>
+</div>
+<div class="menu-items">
+    <ul class="nav-links"><br>
+        <li><a href="admin.html" class="active">
+            <i class="uil uil-estate"></i>
+            <span class="link-name">Dashboard</span>
+        </a></li>
+        <li><a href="#" onclick="openTable()">
+            <i class="uil uil-files-landscapes"></i>
+            <span class="link-name">Blog</span>
+        </a></li>
+        <li><a href="#">
+            <i class="uil uil-comment"></i>
+            <span class="link-name">Comment</span>
+        </a></li>
+        <li><a href="#">
+            <i class="uil uil-thumbs-up"></i>
+            <span class="link-name">Like</span>
+        </a></li>
+    </ul>
+    <ul class="logout-mod">
+        <li><a href="index.html">
+            <i class="uil uil-signout"></i>
+            <span class="link-name">Logout</span>
+        </a></li> 
+        <li class="mode"><a href="#">
+            <i class="uil uil-moon"></i>
+            <span class="link-name">Dark Mode</span>
+        </a>
+    <div class="mode-toggle">
+<span class="switch"></span>
+</div>
+</li> 
+    </ul>
+</div>
+</nav>
+
+
+<section class="dashboard">
+    <div class="top">
+        <i class="uil uil-bars sidebar-toggle"></i>
+
+        <div class="search-box">
+            <i class="uil uil-search"></i>
+            <input type="text" placeholder="Search here...">
+        </div>
+        <img src="images/picture.jpeg" alt="">
+    </div>
+
+    <div class="dash-content">
+        <div class="overview">
+            <div class="title">
+                <i class="uil uil-tachometer-fast-alt"></i>
+                <span class="text" >Dashboard</span>
+
+                </div>
+
+                
+
+                <div class="boxes">
+                    <div class="box box1">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="text">Blogs</span>
+                    <span class="number"></span>
+
+                </div>
+                <div class="box box2">
+                    <i class="uil uil-comments"></i>
+                    <span class="text">Comments</span>
+                    <span class="number"></span>
+
+                </div>
+                <div class="box box3">
+                   <i class="uil uil-thumbs-up"></i>
+                    <span class="text">Likes</span>
+                    <span class="number"></span>
+                    
+
+                </div> 
+            </div>
+        </div>
+
+
+        <div class="activity">
+            <div class="title">
+                <i class="uil uil-clock-three"></i>
+                <span class="text">Recent Activity</span>
+            </div>
+            <div class="activity-data">
+                <div class="data names" id="m_name">
+                    <span class="data-title" >Name</span>
+                    <span class="data-list"id="namea"></span>
+        </div>
+        <div class="data email" id="m_email">
+                <span class="data-title" >Email</span>
+                <span class="data-list" id="emaila"></span>
+    </div>
+
+    <div class="data comment" id="m_message">
+        <span class="data-title" >Comment</span>
+        <span class="data-list" id="commenta"></span>
+</div>
+   
+            </div>
+            </div>
+</section>
+    
+      
+<table id="myTable" class="popup">
+  <tr>
+      <td>
+          <form autocomplete="off" onsubmit="onFormSubmit()">
+              <div>
+                  <label for="productCode">Title</label>
+                  <input type="text" name="productCode" id="productCode">
+              </div>
+             <div>
+                  <label for="product">Icon</label>
+                  <input type="file" name="product" id="product">
+              </div>
+              <div>
+                  <label for="qty">Article Story</label>
+                  <input type="text" name="qty" id="qty">
+              </div>
+              <div>
+                  <label for="perPrice">Description</label>
+                  <textarea type="text" cols="30" rows="8" name="perPrice" id="perPrice"></textarea>
+              </div>
+
+              <div class="form_action--button">
+                  <input type="submit" value="Submit">
+                  <input type="reset" value="Reset">
+              </div>
+          </form>
+         
+         
+          <td>
+              <table class="list" id="storeList">
+                  <thead>
+                     <tr>
+                          <th>Title</th>
+                          <th>Icon</th>
+                          <th>Story</th>
+                          <th>Description</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+              </table>
+      </td>
+      </td>
+  </tr>
+</table>
+<script>
+  function openTable() {
+    document.getElementById("myTable").style.display = "block";
+  }
+</script>
+<script>
+    const body = document.querySelector("body"),
+    modeToggle = body.querySelector(".mode-toggle");
+    sidebar = body.querySelector("nav");
+    sidebarToggle = body.querySelector(".sidebar-toggle");
+
+    modeToggle.addEventListener("click", () =>{
+        body.classList.toggle("dark");
+        if(body.classList.contains("dark")){
+            localStorage.setItem("mode", "dark");
+        }else{
+            localStorage.setItem("mode", "light")
+        }
+
+    });    
+    sidebarToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+       
+    })
+
+</script>
+ 
+<script>
+var selectedRow = null;
+function onFormSubmit(e){
+event.preventDefault();
+var formData = readFormData();
+if(selectedRow === null){
+  insertNewRecord(formData);
+}
+else{
+
+updateRecord(formData);
+}
+resetForm();
+}
+
+//Retrieve the data
+
+function readFormData(){
+var formData = {};
+formData["productCode"] =  document.getElementById("productCode").value;
+formData["product"] = document.getElementById("product").value;
+formData["qty"] = document.getElementById("qty").value;
+formData["perPrice"] = document.getElementById("perPrice").value;
+return formData;
+}
+//Insert the data
+
+function insertNewRecord(data){
+var table = document.getElementById("storeList").getElementsByTagName('tbody')[0];
+var newRow = table.insertRow(table.length);
+var cell1 = newRow.insertCell(0);
+cell1.innerHTML = data.productCode;
+var cell2 = newRow.insertCell(1);
+cell2.innerHTML = data.product;
+var cell3 = newRow.insertCell(2);
+cell3.innerHTML = data.qty;
+var cell4 = newRow.insertCell(3);
+cell4.innerHTML = data.perPrice;
+var cell5 = newRow.insertCell(4);
+cell5.innerHTML = `<button onclick='onEdit(this)'>Edit</button> <button onclick='onDelete(this)'>Delete</button>`
+}
+
+function onEdit(td){
+selectedRow = td.parentElement.parentElement;
+document.getElementById('productCode').value = selectedRow.cells[0].innerHTML;
+document.getElementById('product').value = selectedRow.cells[1].innerHTML;
+document.getElementById('qty').value = selectedRow.cells[2].innerHTML;
+document.getElementById('perPrice').value = selectedRow.cells[3].innerHTML;
+}
+function updateRecord(formData){
+selectedRow.cells[0].innerHTML = formData.productCode;
+selectedRow.cells[1].innerHTML = formData.product;
+selectedRow.cells[2].innerHTML = formData.qty;
+selectedRow.cells[3].innerHTML = formData.perPrice;
+}
+
+function onDelete(td){
+if(confirm('Do yuo want to delete this record?')){
+row = td.parentElement.parentElement;
+document.getElementById('storeList').deleteRow(row.rowIndex);
+}
+resetForm();
+}
+
+function resetForm(){
+document.getElementById('productCode').value = '';
+document.getElementById('product').value = '';
+document.getElementById('qty').value = '';
+document.getElementById('perPrice').value = '';
+}
+</script>
+</body>
+</html>
